@@ -1,4 +1,4 @@
-# DreamStartOfTurn
+# Runaway Dream
 A small tweak mod for Touhou: Lost Branch of Legend.
 
 ## How it works in Vanilla
@@ -13,10 +13,14 @@ This rewards bigger decks and makes them more viable, but if you are running a v
 
 ### Installation 
 
-Install from Thunderstore (URL pending) or from the Releases section on Github. Requires BepInEx since this is a Harmony mod.
+I recommend using Thunderstore and r2modman or the Steam Workshop to install this mod (links below). For manual installation, grab the latest zip from the Releases section. Requires BepInEx since this is a Harmony mod.
 
 ### Building
 
 Clone this project, make sure the References are set up correctly (manually edit the `.csproj` to change the game dir), and then open the solution with Visual Studio. I use VS2022.
 
-There's probably some unused junk in the directory since the `SampleCharacterMod` mod was used as a starting point, but this mod does not add any content like characters, cards or exhibits. It only adds a Harmony patch to run the Dream code. The solution should still build and none of the "junk" nor any Sideloader stuff is included in the build.
+### Links
+
+[Thunderstore page for Runaway Dream](https://thunderstore.io/c/touhou-lost-branch-of-legend/p/Rokk/DreamStartOfTurn/)
+
+[Steam Workshop page for Runaway Dream](https://steamcommunity.com/sharedfiles/filedetails/?id=3572912894)

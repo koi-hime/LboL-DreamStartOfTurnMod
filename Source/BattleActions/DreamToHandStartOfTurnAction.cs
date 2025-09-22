@@ -12,17 +12,14 @@ namespace LbolDreamStartOfTurnMod.BattleActions
 {
     public sealed class DreamToHandStartOfTurnAction : SimpleAction
     {
-        // Copypasted mostly from LBoL.Core.Battle.BattleActions.DreamCardsToHandAction, but without the part where it removes Dream from all cards after choosing.
+        // Copypasted mostly from LBoL.Core.Battle.BattleActions.DreamCardsToHandAction,
+        // but without the part where it removes the Dream keyword from all cards after choosing.
         public override IEnumerable<Phase> GetPhases()
         {
-            BepinexPlugin.log.LogInfo("GetPhases called");
-
             List<Card> list = base.Battle.DrawZone
                 .Union(base.Battle.DiscardZone)
                 .Where((Card card) => card.IsDreamCard)
                 .ToList<Card>();
-
-            BepinexPlugin.log.LogInfo("GetPhases dream card count: " + list.Count);
 
             if (list.Count > 0)
             {

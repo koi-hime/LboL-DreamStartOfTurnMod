@@ -10,7 +10,6 @@ namespace LbolDreamStartOfTurnMod.Patches
     {
         static void Postfix(BattleController __instance)
         {
-            //__instance.ResolveAction(new DreamToHandStartOfTurnAction());
             __instance.React(new Reactor(new DreamToHandStartOfTurnAction()), null, ActionCause.TurnStart);
         }
     }

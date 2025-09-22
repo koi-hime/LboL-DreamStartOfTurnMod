@@ -259,9 +259,6 @@
 	<Reference Include="LBoL-AddWatermark">
 		<HintPath>C:\Users\Rokk\AppData\Roaming\r2modmanPlus-local\TouhouLostBranchOfLegend\profiles\Default\BepInEx\plugins\TeamNeo-Watermark\LBoL-AddWatermark.dll</HintPath>
 	</Reference>
-	<Reference Include="LBoL-Entity-Sideloader">
-	  <HintPath>..\..\..\Users\Rokk\AppData\Roaming\r2modmanPlus-local\TouhouLostBranchOfLegend\profiles\Default\BepInEx\plugins\TeamNeo-Sideloader\LBoL-Entity-Sideloader.dll</HintPath>
-	</Reference>
 	<Reference Include="LBoL.Base">
 	  <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\LBoL\LBoL_Data\Managed\LBoL.Base.dll</HintPath>
 	</Reference>

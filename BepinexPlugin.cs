@@ -2,7 +2,6 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using LBoL.Base;
-using LBoLEntitySideloader;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -12,7 +11,6 @@ using UnityEngine;
 namespace LbolDreamStartOfTurnMod
 {
     [BepInPlugin(LbolDreamStartOfTurnMod.PInfo.GUID, LbolDreamStartOfTurnMod.PInfo.Name, LbolDreamStartOfTurnMod.PInfo.version)]
-    [BepInDependency(LBoLEntitySideloader.PluginInfo.GUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(AddWatermark.API.GUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInProcess("LBoL.exe")]
     public class BepinexPlugin : BaseUnityPlugin
@@ -34,9 +32,9 @@ namespace LbolDreamStartOfTurnMod
             DontDestroyOnLoad(gameObject);
             gameObject.hideFlags = HideFlags.HideAndDontSave;
 
-            log.LogInfo("Patching harmony for LbolDreamStartOfTurnMod");
+            log.LogInfo("Running Harmony patches for LbolDreamStartOfTurnMod");
             harmony.PatchAll();
-            log.LogInfo("Harmony patched for LbolDreamStartOfTurnMod");
+            log.LogInfo("Harmony patches for LbolDreamStartOfTurnMod run");
 
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(AddWatermark.API.GUID))
             { 
