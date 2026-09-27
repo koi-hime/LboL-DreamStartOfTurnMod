@@ -10,7 +10,7 @@ namespace DreamStartOfTurnMod_TopDeck.Source.Patches
     {
         static void Postfix(BattleController __instance)
         {
-            __instance.React(new Reactor(new DreamToHandStartOfTurnAction()), null, ActionCause.TurnStart);
+            __instance.React(new Reactor(new DreamToTopDeckStacked()), null, ActionCause.TurnStart);
         }
     }
 }

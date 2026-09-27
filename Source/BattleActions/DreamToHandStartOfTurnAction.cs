@@ -15,7 +15,7 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
     /// The start of turn action that moves all Dream cards from 
     /// the Draw and Discard zones to the player's hand.
     /// </summary>
-    public sealed class DreamToHandStartOfTurnAction : SimpleAction
+    public sealed class DreamToTopDeckStacked : SimpleAction
     {
         /// <summary>
         /// Copypasted mostly from LBoL.Core.Battle.BattleActions.DreamCardsToHandAction,
@@ -44,7 +44,7 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
 
                 yield return base.CreatePhase("Select", delegate
                 {
-                    this.React(new InteractionAction(selectDreamCardsInteraction, false), null, null);
+                    this.React(new InteractionAction(selectDreamCardsInteraction, false));
                 }, false);
 
                 // if the player selected a Dream card, this current version will move it to their hand
@@ -53,11 +53,16 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
                 IReadOnlyList<Card> selectedDreamCard = selectDreamCardsInteraction.SelectedCards;
                 if (selectedDreamCard.Count > 0)
                 {
-                    yield return base.CreatePhase("MoveToHand", delegate
+                    yield return base.CreatePhase("MoveToTopOfDeck", delegate
                     {
                         foreach (Card currentDreamCard in selectedDreamCard)
                         {
-                            this.React(new MoveCardAction(currentDreamCard, CardZone.Hand), null, null);
+                            this.React(new MoveCardAction(currentDreamCard, CardZone.Draw));
+
+                            // set the chosen card's dream card status to false so that
+                            // it is no longer a Dream card when it is stacked on top of
+                            // the deck
+                            currentDreamCard.IsDreamCard = false;
                         }
                     }, false);
                 }
