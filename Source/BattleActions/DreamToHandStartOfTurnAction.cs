@@ -7,38 +7,57 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YamlDotNet.Serialization.Schemas;
 
-namespace LbolDreamStartOfTurnMod.BattleActions
+namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
 {
+    /// <summary>
+    /// The start of turn action that moves all Dream cards from 
+    /// the Draw and Discard zones to the player's hand.
+    /// </summary>
     public sealed class DreamToHandStartOfTurnAction : SimpleAction
     {
-        // Copypasted mostly from LBoL.Core.Battle.BattleActions.DreamCardsToHandAction,
-        // but without the part where it removes the Dream keyword from all cards after choosing.
+        /// <summary>
+        /// Copypasted mostly from LBoL.Core.Battle.BattleActions.DreamCardsToHandAction,
+        /// but without the part where it removes the Dream keyword from all cards after choosing.
+        /// </summary>
+        /// <returns></returns>
         public override IEnumerable<Phase> GetPhases()
         {
-            List<Card> list = base.Battle.DrawZone
-                .Union(base.Battle.DiscardZone)
-                .Where((Card card) => card.IsDreamCard)
-                .ToList<Card>();
 
-            if (list.Count > 0)
+            // Apparently Dream cards can not only be in the discard pile, but also in the draw pile.
+            // So we need to check both zones.
+            List<Card> dreamCardsInDrawAndDiscard = Battle.DrawZone
+                .Union(Battle.DiscardZone)
+                .Where(card => card.IsDreamCard)
+                .ToList();
+
+            var hasDreamCards = dreamCardsInDrawAndDiscard.Count > 0;
+            if (hasDreamCards)
             {
-                SelectCardInteraction interaction = new SelectCardInteraction(0, 1, list, SelectedCardHandling.DoNothing)
+                // create Dream card selection interaction
+                // allowing the player to select up to 1 Dream card to move to their hand
+                SelectCardInteraction selectDreamCardsInteraction = new SelectCardInteraction(0, 1, dreamCardsInDrawAndDiscard, SelectedCardHandling.DoNothing)
                 {
                     Description = "SelectCard.DreamCardsToHand".Localize(true)
                 };
+
                 yield return base.CreatePhase("Select", delegate
                 {
-                    this.React(new InteractionAction(interaction, false), null, null);
+                    this.React(new InteractionAction(selectDreamCardsInteraction, false), null, null);
                 }, false);
-                IReadOnlyList<Card> selected = interaction.SelectedCards;
-                if (selected.Count > 0)
+
+                // if the player selected a Dream card, this current version will move it to their hand
+                // the planned intent of this adjustment is to change this to place the card on
+                // top of the deck instead of moving it to the hand
+                IReadOnlyList<Card> selectedDreamCard = selectDreamCardsInteraction.SelectedCards;
+                if (selectedDreamCard.Count > 0)
                 {
                     yield return base.CreatePhase("MoveToHand", delegate
                     {
-                        foreach (Card card3 in selected)
+                        foreach (Card currentDreamCard in selectedDreamCard)
                         {
-                            this.React(new MoveCardAction(card3, CardZone.Hand), null, null);
+                            this.React(new MoveCardAction(currentDreamCard, CardZone.Hand), null, null);
                         }
                     }, false);
                 }
