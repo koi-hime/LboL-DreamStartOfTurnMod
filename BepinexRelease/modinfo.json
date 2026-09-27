@@ -10,9 +10,10 @@
   "Version": "1.0.2",
   "Author": "Rokk, こい姫",
   "Tags": ["Mod", "Gameplay", "Misc"],
-  "PublishedFileId": 3572912894,
-  "AuthorId": 76561197996000877,
+  // "PublishedFileId": 3572912894,
+  // "PublishedFileId": pending-workshop-upload,
+  "AuthorId": 76561198027327267,
   "GUID": "koihime.lbol.gameplay.DreamStartOfTurn",
   "Dependencies": ["BepInEx-BepInExPack-5.4.2100"],
-  "LastUpdateTime": 1758555638
+  "LastUpdateTime": 1790524500
 }
