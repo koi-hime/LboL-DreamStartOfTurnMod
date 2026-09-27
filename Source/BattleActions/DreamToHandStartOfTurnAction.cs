@@ -57,7 +57,7 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
                     {
                         foreach (Card currentDreamCard in selectedDreamCard)
                         {
-                            this.React(new MoveCardAction(currentDreamCard, CardZone.Draw));
+                            this.React(new MoveCardToDrawZoneAction(currentDreamCard, DrawZoneTarget.Top));
 
                             // set the chosen card's dream card status to false so that
                             // it is no longer a Dream card when it is stacked on top of

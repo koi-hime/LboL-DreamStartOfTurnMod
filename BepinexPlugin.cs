@@ -23,7 +23,7 @@ namespace DreamStartOfTurnMod_TopDeck
         ///  If defined, this is also the ID used by the Act 1 boss.
         ///  WARNING: It is mandatory to rename it to avoid issues.
         /// </summary>
-        public static string modUniqueID = "DreamStartOfTurnMod_TopDeck";
+        public static string modUniqueID = "DreamStartOfTurn_TopDeck";
 
         private static readonly Harmony harmony = PInfo.harmony;
 
