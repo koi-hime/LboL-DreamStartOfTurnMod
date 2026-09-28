@@ -1,25 +1,22 @@
 [h1]Runaway Dream[/h1]
 
-A small buff to the Dream mechanic, with adjustments that make it a top-deck mechanic.
+A small buff to the Dream mechanic, new adjustments to make it a top deck mechanic instead.
+Original Author, Rokk; updated by こい姫.
 
-[b]Original author:[/b] Rokk
-[b]Updated by:[/b] こい姫
-[b]Fork permission:[/b] Granted by Rokk
+[list][*]Permission granted to fork from Rokk[/list]
 
-[h2]Vanilla Dream[/h2]
+[h2]How it works in Vanilla[/h2]
 
-Dream is a mechanic primarily used by Koishi Komeiji. When you Dream X, the top X cards of your draw pile are effectively discarded and gain the Dream keyword. The next time your deck is reshuffled, you may choose one Dream card to put into your hand. All cards then lose Dream, and the cards you did not choose return to the draw pile as usual.
+Dream is a mechanic that was introduced with Koishi Komeiji, and has some synergies with it but could use more still. Whenever you Dream X, the top X cards in the draw pile are essentially discarded and then gain the Dream keyword. On the next reshuffle, you may select [i]one[/i] (1) card to put in your hand. All cards then lose Dream, and the ones you didn't pick go into the draw pile like normal.
 
-This is a fairly weak mechanic unless you know what is in your draw pile and in what order. Koishi has little easy access to Scry, so setting aside several cards to retrieve just one can be underwhelming. You might have drawn that card sooner by simply not using Dream.
+This is an interesting mechanic that is currently under utilized since draw pile information is difficult to acquire, due to the fact that Koishi does not have frequent Scry access. Not being able to access the Dream cards normally until the reshuffle can be quite underwhelming as it is currently, since there's only a few innate way for Koishi to fetch discard cards with Black Mana, and 1 more reliable card in the Blue Koishi card pool.
 
-[h2]With this mod[/h2]
+[h2]How it works with this mod[/h2]
 
-In addition to the usual Dream mechanics, you can choose one Dream card from your draw or discard pile to place on top of your deck at the start of each turn, as long as you have at least one Dream card. This works with any character.
+In addition to the usual Dream mechanics, you now also get to pick one Dream card to place on top of your draw pile at the start of each turn, if you have at least one. This happens on any character at the start of your turn, as long as you have a card with the Dream keyword.
 
-This effect does not remove Dream from the other cards, so you can retrieve another one next turn or during the next reshuffle. The extra retrieval happens after the draw step. If your deck reshuffles at the start of your turn, the vanilla Dream effect still lets you retrieve only one card, because it removes Dream from all cards when it resolves. In practice, this lets you retrieve one Dream card at the start of a turn whether or not a reshuffle occurred.
+This does [i]not[/i] remove the Dream keyword from other cards, so you can do it again next turn or during the next reshuffle. This extra retrieve step happens after the Draw step in your turn, so if you shuffle the deck at the start of your turn, you still only get to retrieve one Dream card as per usual, since the vanilla behavior removes the Dream keyword from all cards when it happens. Effectively, this means you get to always retrieve one Dream card at the start of your turn, regardless of whether or not a reshuffle has happened.
 
-The change rewards larger decks and gives you more flexibility. It also makes Dream work especially well with top-deck mechanics, including follow-ups, emotion setup, and effects that play cards from the deck for free or multiple times. Since follow-up cards want to stay in the deck, this is more synergistic—and more fitting for a mechanic about dreams—than simply adding another card to your hand.
+This rewards bigger decks and improved flexibility and in addition, this adjustment this will allow anyone who uses Dream (and especially Koishi) to more readily utlize top deck mechanics that enchance playing cards from the deck, such as follow-ups, emotion setup, and free/doubled card plays. It is more synergistic and flavor themed compared to adding to hand every turn, since follow up cards want to be in the deck to be played. Several other cards want to be played for free or multiple times as well, so this excels at enabling setup for these bonus effects. Koishi's mind and dreams happen in the subconscious, after all~
 
-[h2]Dream Express[/h2]
-
-Dream Express can now more reliably place a high-cost card on top of your deck to increase its area-of-effect damage, provided you do not draw that card during the turn. I considered making the card go to your hand or preventing it from being selected by Dream, but I’d like to see how this version plays before making further adjustments.
+Additionally, the Dream Express card can now more reliably place a high cost card to deal more damage for the AoE effect due to this top deck mechanic, if no draw was done during the turn. I was considering adding the card to the hand or making the top deck card undreamable, but I want to see how this plays out first before doing other adjustments.

@@ -12,8 +12,11 @@ using YamlDotNet.Serialization.Schemas;
 namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
 {
     /// <summary>
-    /// The start of turn action that moves all Dream cards from 
-    /// the Draw and Discard zones to the player's hand.
+    /// The start of turn action that selects one Dream card from
+    /// discard to place on top of the deck. Occurs after draw step,
+    /// (which is also after any abilities that play at the start of the turn,
+    /// like Awakened's True Form, which plays the top card of the draw pile
+    /// at the start of the turn).
     /// </summary>
     public sealed class DreamToTopDeckStacked : SimpleAction
     {
