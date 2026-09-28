@@ -11,7 +11,7 @@
   "Version": "1.0.3",
   "Author": "Rokk, こい姫",
   "Tags": ["Mod", "Gameplay", "Misc"],
-  "PublishedFileId": 0,
+  "PublishedFileId": 3809226039,
   "AuthorId": 76561198027327267,
   "GUID": "koihime.lbol.gameplay.DreamStartOfTurn_TopDeck",
   "Dependencies": ["BepInEx-BepInExPack-5.4.2100"],
