@@ -35,11 +35,15 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
             var hasDreamCards = dreamCardsInDrawAndDiscard.Count > 0;
             if (hasDreamCards)
             {
-                // create Dream card selection interaction
-                // allowing the player to select up to 1 Dream card to move to their hand
+                // create Dream top deckcard selection interaction
+                // allowing the player to select up to 1 Dream card to place on top of their deck
                 SelectCardInteraction selectDreamCardsInteraction = new SelectCardInteraction(0, 1, dreamCardsInDrawAndDiscard, SelectedCardHandling.DoNothing)
                 {
-                    Description = "SelectCard.DreamCardsToHand".Localize(true)
+                    // Description = "SelectCard.DreamCardsToHand".Localize(true)
+                    // !!! make this a localized string in the future, but for now just hardcode it
+                    // still need to figure out how to add a custom localized string
+                    // to be able to use for this card interaction UI `key: SelectCard.DreamCardsToTopOfDeck`
+                    Description = "Select a Dream card to place on top of the deck."
                 };
 
                 yield return base.CreatePhase("Select", delegate
