@@ -53,8 +53,13 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
                 var drawCardNames = string.Join(", ", drawCardsInHand.Select(card => card.Name));
                 var dreamCardNames = string.Join(", ", dreamCardsInHand.Select(card => card.Name));
                 var followUpCardNames = string.Join(", ", followUpCardsInDrawPile.Select(card => card.Name));
+
+                var drawString = drawCardNames.Any() ? $"\nDraw Cards in Hand: {drawCardsInHand.Count}; {drawCardNames}" : "";
+                var dreamString = dreamCardNames.Any() ? $"\nDream Cards in Hand: {dreamCardsInHand.Count}; {dreamCardNames}" : "";
+                var followUpString = followUpCardNames.Any() ? $"\nFollow-Up Cards in Draw Pile: {followUpCardsInDrawPile.Count}; {followUpCardNames}" : "";
+
                 var dreamCardSelectionDescription =
-                    $"Dream Phase: Select a Dream card to place on top of the deck.\nDraw Cards in hand: {drawCardsInHand.Count}\n{drawCardNames}\nDream Cards in hand: {dreamCardsInHand.Count}\n{dreamCardNames}\nFollow-Up Cards in Draw Pile: {followUpCardsInDrawPile.Count}\n{followUpCardNames}";
+                    $"Dream Phase: Select a Dream card to place on top of the deck.{drawString}{dreamString}{followUpString}";
 
                 // create Dream top deckcard selection interaction
                 // allowing the player to select up to 1 Dream card to place on top of their deck
