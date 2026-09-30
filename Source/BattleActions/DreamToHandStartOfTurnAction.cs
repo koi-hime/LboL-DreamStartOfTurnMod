@@ -48,9 +48,13 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
                 // this is useful to see what dream card to pick for top deck setup
                 // if no draw cards avaliable, then it changes what dream card to stack on top.
                 var drawCardsInHand = Battle.HandZone.Where(HasPotentialDrawAction).ToList();
-                var cardNames = string.Join(", ", drawCardsInHand.Select(card => card.Name));
+                var dreamCardsInHand = Battle.HandZone.Where(card => card.IsDreamCard).ToList();
+                var followUpCardsInDrawPile = Battle.DrawZone.Where(card => card.IsFollowCard).ToList();
+                var drawCardNames = string.Join(", ", drawCardsInHand.Select(card => card.Name));
+                var dreamCardNames = string.Join(", ", dreamCardsInHand.Select(card => card.Name));
+                var followUpCardNames = string.Join(", ", followUpCardsInDrawPile.Select(card => card.Name));
                 var dreamCardSelectionDescription =
-                    $"Select a Dream card to place on top of the deck. Draw Cards in hand: {drawCardsInHand.Count}\n{cardNames}";
+                    $"Dream Phase: Select a Dream card to place on top of the deck.\nDraw Cards in hand: {drawCardsInHand.Count}\n{drawCardNames}\nDream Cards in hand: {dreamCardsInHand.Count}\n{dreamCardNames}\nFollow-Up Cards in Draw Pile: {followUpCardsInDrawPile.Count}\n{followUpCardNames}";
 
                 // create Dream top deckcard selection interaction
                 // allowing the player to select up to 1 Dream card to place on top of their deck
