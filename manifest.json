@@ -1,6 +1,6 @@
 {
   "name": "DreamStartOfTurn_TopDeck",
-  "version_number": "1.0.3",
+  "version_number": "1.0.7",
   "website_url": "https://github.com/koi-hime/LboL-DreamStartOfTurnMod/tree/feature/dream-is-place-on-top-of-deck",
   "description": "Adds an extra step at the start of each turn after the draw step, where you can place 1 Dream card (if you have any) on the top of the deck, significatly improving the capability of Dream cards to be used in the next turn. Extremely useful for both emotion and follow-up setup.",
   "dependencies": ["BepInEx-BepInExPack-5.4.2100"]

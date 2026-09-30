@@ -18,7 +18,7 @@ namespace DreamStartOfTurnMod_TopDeck
         /// <summary>
         /// 
         /// </summary>
-        public const string version = "1.0.0";
+        public const string version = "1.0.7";
         /// <summary>
         /// 
         /// </summary>

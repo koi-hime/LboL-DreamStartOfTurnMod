@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build topdeck mod",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/DreamStartOfTurnMod_TopDeck.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish topdeck mod",
+            "command": "bash",
+            "type": "process",
+            "args": [
+                "${workspaceFolder}/publish-to-workshop.sh"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "deploy topdeck mod to ScriptEngine",
+            "type": "shell",
+            "command": "dotnet build \"${workspaceFolder}/DreamStartOfTurnMod_TopDeck.csproj\" && install -D \"${workspaceFolder}/bin/Debug/netstandard2.1/DreamStartOfTurnMod_TopDeck.dll\" \"/run/media/system/990-EP1-LS/SteamLibrary/steamapps/workshop/content/1140150/3483706823/BepInEx/scripts/DreamStartOfTurnMod_TopDeck.dll\"",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch topdeck mod",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/DreamStartOfTurnMod_TopDeck.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

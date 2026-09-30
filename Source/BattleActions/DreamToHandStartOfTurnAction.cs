@@ -37,33 +37,53 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
 
             // Apparently Dream cards can not only be in the discard pile, but also in the draw pile.
             // So we need to check both zones.
-            List<Card> dreamCardsInDrawAndDiscard = [.. Battle.DrawZone
+            List<Card> cardsWithDreamEffectAppliedInDrawAndDiscard = [.. Battle.DrawZone
                 .Union(Battle.DiscardZone)
                 .Where(card => card.IsDreamCard)];
 
-            var hasDreamCards = dreamCardsInDrawAndDiscard.Count > 0;
-            if (hasDreamCards)
+            var hasCardsWithDreamEffect = cardsWithDreamEffectAppliedInDrawAndDiscard.Count > 0;
+            if (hasCardsWithDreamEffect)
             {
                 // cards in the players hand that can draw any amount
                 // this is useful to see what dream card to pick for top deck setup
                 // if no draw cards avaliable, then it changes what dream card to stack on top.
-                var drawCardsInHand = Battle.HandZone.Where(HasPotentialDrawAction).ToList();
-                var dreamCardsInHand = Battle.HandZone.Where(card => card.IsDreamCard).ToList();
-                var followUpCardsInDrawPile = Battle.DrawZone.Where(card => card.IsFollowCard).ToList();
-                var drawCardNames = string.Join(", ", drawCardsInHand.Select(card => card.Name));
-                var dreamCardNames = string.Join(", ", dreamCardsInHand.Select(card => card.Name));
-                var followUpCardNames = string.Join(", ", followUpCardsInDrawPile.Select(card => card.Name));
+                var drawCardsInHand = Battle.HandZone.Where(HasPotentialDrawAction).ToList().AsReadOnly();
+                // apparently the Dream keyword is not set on cards in the hand
+                // !!! `Dream` is an entirely different keyword than `DreamCard` so keep this in mind
+                // !!! `Dream` *should* be on the card but actually `Dream` is a relative effect, so we
+                // !!! need to check the card's config for the relative keyword instead of checking
+                // !!! the card's keywords directly; i'm guessing it's done this way because `Dream`
+                // !!! can be upgraded to be of a higher `Dream` value since it is `Dream X`
+                // !!! btw, RelativeKeyword is a single string, but the one string can contain multiple keywords!!!!
+                // !!! WHYYYYYYYYY
+                // var dreamCardsInHand = Battle.HandZoneAndPlayArea.Where(HasDreamAction).ToList().AsReadOnly();
+                // var dreamCardsInHand = Battle.HandZoneAndPlayArea.Where(card => card.ConfigRelativeKeywords == Keyword.Dream).ToList().AsReadOnly();
+                var dreamCardsInHand = Battle.HandZone.Where(card => card.ConfigRelativeKeywords.HasFlag(Keyword.Dream)).ToList().AsReadOnly();
+                var followUpCardsInDrawPile = Battle.DrawZone.Where(card => card.HasKeyword(Keyword.FollowCard)).ToList().AsReadOnly();
 
-                var drawString = drawCardNames.Any() ? $"\nDraw Cards in Hand: {drawCardsInHand.Count}; {drawCardNames}" : "";
-                var dreamString = dreamCardNames.Any() ? $"\nDream Cards in Hand: {dreamCardsInHand.Count}; {dreamCardNames}" : "";
-                var followUpString = followUpCardNames.Any() ? $"\nFollow-Up Cards in Draw Pile: {followUpCardsInDrawPile.Count}; {followUpCardNames}" : "";
+                Console.WriteLine($"Cards in Hand:\n{string.Join(
+                    $"{Environment.NewLine}{Environment.NewLine}",
+                    Battle.HandZone.Select(card =>
+                        $"{card.Name}:{Environment.NewLine}" +
+                        $"- Keywords: {string.Join(", ", card.Keywords)}{Environment.NewLine}" +
+                        $"- ConfigRelativeKeywords: {string.Join(", ", card.ConfigRelativeKeywords)}{Environment.NewLine}" +
+                        $"- RelativeKeyword: {string.Join(", ", card.Config.RelativeKeyword)}{Environment.NewLine}" +
+                        $"- UpgradedRelativeKeyword: {string.Join(", ", card.Config.UpgradedRelativeKeyword)}"))}");
+
+                var drawCardNames = string.Join(", ", drawCardsInHand.Select(GetFirstWordFromName()));
+                var dreamCardNames = string.Join(", ", dreamCardsInHand.Select(GetFirstWordFromName()));
+                var followUpCardNames = string.Join(", ", followUpCardsInDrawPile.Select(GetFirstWordFromName()));
+
+                var drawString = drawCardNames.Any() ? $"Draw-Hand: {drawCardsInHand.Count}; {drawCardNames}" : "";
+                var dreamString = dreamCardNames.Any() ? $" || Dream-Hand: {dreamCardsInHand.Count}; {dreamCardNames}" : "";
+                var followUpString = followUpCardNames.Any() ? $" || FollowUp-Draw: {followUpCardsInDrawPile.Count}; {followUpCardNames}" : "";
 
                 var dreamCardSelectionDescription =
-                    $"Dream Phase: Select a Dream card to place on top of the deck.{drawString}{dreamString}{followUpString}";
+                    $"Dream Phase: Select Dream Card to stack.\n{drawString}{dreamString}{followUpString}";
 
                 // create Dream top deckcard selection interaction
                 // allowing the player to select up to 1 Dream card to place on top of their deck
-                SelectCardInteraction selectDreamCardsInteraction = new(0, 1, dreamCardsInDrawAndDiscard, SelectedCardHandling.DoNothing)
+                SelectCardInteraction selectDreamCardsInteraction = new(0, 1, cardsWithDreamEffectAppliedInDrawAndDiscard, SelectedCardHandling.DoNothing)
                 {
                     // Description = "SelectCard.DreamCardsToHand".Localize(true)
                     // !!! make this a localized string in the future, but for now just hardcode it
@@ -98,6 +118,11 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
                 }
             }
             yield break;
+
+            static Func<Card, string> GetFirstWordFromName()
+            {
+                return card => card.Name.Split(" ").First();
+            }
         }
 
         private static bool HasPotentialDrawAction(Card card)
@@ -133,6 +158,40 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
                 instruction.Operand is MethodReference constructor &&
                 (constructor.DeclaringType.FullName == typeof(DrawManyCardAction).FullName ||
                  constructor.DeclaringType.FullName == typeof(DrawCardsToSpecificAction).FullName));
+        }
+
+        private static bool HasDreamAction(Card card)
+        {
+            var actionsMethod = card.GetType().GetMethod(
+                "Actions",
+                BindingFlags.Instance | BindingFlags.NonPublic,
+                binder: null,
+                types: [typeof(UnitSelector), typeof(ManaGroup), typeof(Interaction)],
+                modifiers: null);
+
+            var stateMachineType = actionsMethod?
+                .GetCustomAttribute<IteratorStateMachineAttribute>()?
+                .StateMachineType;
+
+            if (stateMachineType == null)
+                return false;
+
+            using var module = ModuleDefinition.ReadModule(card.GetType().Assembly.Location);
+
+            var stateMachineName = stateMachineType.FullName.Replace('+', '/');
+            var stateMachine = FindTypes(module.Types)
+                .FirstOrDefault(type => type.FullName == stateMachineName);
+
+            var moveNext = stateMachine?.Methods
+                .FirstOrDefault(method => method.Name == "MoveNext" && method.HasBody);
+
+            if (moveNext == null)
+                return false;
+
+            return moveNext.Body.Instructions.Any(instruction =>
+                instruction.OpCode == OpCodes.Newobj &&
+                instruction.Operand is MethodReference constructor &&
+                (constructor.DeclaringType.FullName == typeof(DreamCardsAction).FullName));
         }
 
         private static IEnumerable<TypeDefinition> FindTypes(
