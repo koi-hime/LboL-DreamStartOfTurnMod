@@ -3,6 +3,7 @@
   "Description": "A small buff for the Dream mechanic.\n\nAt the start of your turn (after the draw step), if you have any cards with the Dream keyword, you can now choose up to 1 Dream card to place on top of your deck. This action does not remove the Dream keyword from other cards; only the card that is placed.\n\nThis only happens if you don\u0027t reshuffle at the start of your turn (in which case the vanilla game will let you retrieve up to 1 Dream card, as per usual).",
   "Brief": "A small buff for the Dream mechanic.",
   "Changelog": [
+    "v1.0.4: \nAdded a count of the number of draw cards and names of the draw cards in hand to the card selection interaction description, so that the player can see how many draw cards they have in hand when selecting a Dream card to place on top of their deck.",
     "v1.0.3: \nHard coded localized string for the card selection interaction description, since I don't know how to add a custom localized string to the Dream card interaction UI yet. Will need to figure out how to do that in the future.",
     "v1.0.2: \nAdjusted this to be a top deck mechanic instead.",
     "v1.0.1: \nFixed false dependency on Sideloader causing the mod to not load without Sideloader.",
@@ -15,5 +16,5 @@
   "AuthorId": 76561198027327267,
   "GUID": "koihime.lbol.gameplay.DreamStartOfTurn_TopDeck",
   "Dependencies": ["BepInEx-BepInExPack-5.4.2100"],
-  "LastUpdateTime": 1790564400
+  "LastUpdateTime": 1790737980
 }

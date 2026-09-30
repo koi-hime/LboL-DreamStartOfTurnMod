@@ -6,6 +6,7 @@
 		<PublicizerClearCacheOnClean>true</PublicizerClearCacheOnClean>
 		<PublicizerLogFilePath>.\Krafs.publicizer.log</PublicizerLogFilePath>
 		<PublicizerRuntimeStrategies>IgnoresAccessChecksTo</PublicizerRuntimeStrategies>
+		<LangVersion>12</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
