@@ -7,6 +7,7 @@ Original Author, Rokk; updated by こい姫.
 
 [h2]Update Log[/h2]
 [list]
+[*] v1.0.6: Updated the tooltip description's formatting.
 [*] v1.0.5: Added these counters for Dream card in hand and follow-up cards in the draw pile.
 [*] v1.0.4: Added a count of the number of draw cards and names of the draw cards in hand to the card selection interaction description, so that the player can see how many draw cards they have in hand when selecting a Dream card to place on top of their deck.
 [*] v1.0.3: Hard coded localized string for the card selection interaction description, since I don't know how to add a custom localized string to the Dream card interaction UI yet. Will need to figure out how to do that in the future.
