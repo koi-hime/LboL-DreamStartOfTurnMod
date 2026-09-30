@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace LbolDreamStartOfTurnMod
+namespace DreamStartOfTurnMod_TopDeck
 {
     internal class WatermarkWrapper
     {

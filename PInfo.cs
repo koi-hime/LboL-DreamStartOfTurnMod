@@ -1,12 +1,27 @@
 ﻿using HarmonyLib;
 
-namespace LbolDreamStartOfTurnMod
+namespace DreamStartOfTurnMod_TopDeck
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class PInfo
     {
-        public const string GUID = "rokk.lbol.gameplay.DreamStartOfTurn";
-        public const string Name = "DreamStartOfTurn";
-        public const string version = "1.0.1";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string GUID = "koihime.lbol.gameplay.DreamStartOfTurn_TopDeck";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string Name = "DreamStartOfTurn_TopDeck";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string version = "1.0.0";
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly Harmony harmony = new Harmony(GUID);
 
     }
