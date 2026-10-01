@@ -3,6 +3,7 @@
   "Description": "A small buff for the Dream mechanic.\n\nAt the start of your turn (after the draw step), if you have any cards with the Dream keyword, you can now choose up to 1 Dream card to place on top of your deck. This action does not remove the Dream keyword from other cards; only the card that is placed.\n\nThis only happens if you don't reshuffle at the start of your turn (in which case the vanilla game will let you retrieve up to 1 Dream card, as per usual).",
   "Brief": "A small buff for the Dream mechanic.",
   "Changelog": [
+    "v1.0.8: \nOptimized the Dream selection tooltip even more, combining multiple copies of a card into x{#} format. Also added more counter types cards like cards that play on top of the deck, cards that trigger follow-up effects, and cards that trigger follow-up effects in the draw pile.",
     "v1.0.7: \nOptimized the Dream selection tooltip.",
     "v1.0.6: \nUpdated the tooltip description's formatting.",
     "v1.0.5: \nAdded these counters for Dream card in hand and follow-up cards in the draw pile.",
@@ -12,7 +13,7 @@
     "v1.0.1: \nFixed false dependency on Sideloader causing the mod to not load without Sideloader.",
     "v1.0.0: \nInitial Release."
   ],
-  "Version": "1.0.7",
+  "Version": "1.0.8",
   "Author": "Rokk, こい姫",
   "Tags": [
     "Mod",
@@ -25,5 +26,5 @@
   "Dependencies": [
     "BepInEx-BepInExPack-5.4.2100"
   ],
-  "LastUpdateTime": 1790766086
+  "LastUpdateTime": 1790854552
 }

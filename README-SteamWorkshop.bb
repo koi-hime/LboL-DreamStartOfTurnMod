@@ -7,6 +7,7 @@ Original Author, Rokk; updated by こい姫.
 
 [h2]Update Log[/h2]
 [list]
+[*] v1.0.8: Optimized the Dream selection tooltip even more, combining multiple copies of a card into x{#} format. Also added more counter types cards like cards that play on top of the deck, cards that trigger follow-up effects, and cards that trigger follow-up effects in the draw pile.
 [*] v1.0.7: Optimized the Dream selection tooltip.
 [*] v1.0.6: Updated the tooltip description's formatting.
 [*] v1.0.5: Added these counters for Dream card in hand and follow-up cards in the draw pile.
