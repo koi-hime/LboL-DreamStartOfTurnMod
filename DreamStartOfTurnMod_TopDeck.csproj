@@ -358,4 +358,13 @@
 			<HintPath>$(GameFolder)/LBoL_Data/Managed/DOTween.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+
+	<Target Name="CopyPluginToBepinexRelease" AfterTargets="Publish">
+		<MakeDir Directories="$(MSBuildProjectDirectory)/BepinexRelease" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)/BepinexRelease" />
+	</Target>
+	<Target Name="CopyPluginToWorkshopFolder" AfterTargets="Publish">
+		<MakeDir Directories="$(MSBuildProjectDirectory)/BepinexRelease" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="/run/media/system/990-EP1-LS/SteamLibrary/steamapps/workshop/content/1140150/3809226039" />
+	</Target>
 </Project>
