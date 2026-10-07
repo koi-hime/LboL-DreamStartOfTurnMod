@@ -96,10 +96,10 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
                 var followUpCardNames = FormatNames(followUpCardsInDrawPile);
                 var followUpTriggersCardNames = FormatNames(followUpTriggersCardsInHand);
 
-                var drawString = drawCardNames.Any() ? $"Dra-Hnd: {drawCardsInHand.Count}; {drawCardNames}" : "";
+                var drawString = drawCardNames.Any() ? $"DrawCard-Hnd: {drawCardsInHand.Count}; {drawCardNames}" : "";
                 var playOnTopString = playOnTopNames.Any() ? $"PlayTop-Hnd: {playOnTopKoishiCardsInHand.Count}; {playOnTopNames}" : "";
-                var dreamString = dreamCardNames.Any() ? $"Dr-Hnd: {dreamCardsInHand.Count}; {dreamCardNames}" : "";
-                var followUpString = followUpCardNames.Any() ? $"FolUp-Dra: {followUpCardsInDrawPile.Count}; {followUpCardNames}" : "";
+                var dreamString = dreamCardNames.Any() ? $"Dream-Hnd: {dreamCardsInHand.Count}; {dreamCardNames}" : "";
+                var followUpString = followUpCardNames.Any() ? $"FolUp-Draw: {followUpCardsInDrawPile.Count}; {followUpCardNames}" : "";
                 var followUpTriggersString = followUpTriggersCardNames.Any() ? $"FolUpTrig-Hnd: {followUpTriggersCardsInHand.Count}; {followUpTriggersCardNames}" : "";
 
                 var sections = new[]
@@ -211,18 +211,31 @@ namespace DreamStartOfTurnMod_TopDeck.Source.BattleActions
             module = null;
             moveNext = null;
 
-            if (stateMachineType == null)
-                return (flowControl: false, value: false);
-            module = ModuleDefinition.ReadModule(card.GetType().Assembly.Location);
-            var stateMachineName = stateMachineType.FullName.Replace('+', '/');
-            var stateMachine = FindTypes(module.Types)
-                .FirstOrDefault(type => type.FullName == stateMachineName);
+            // attempt to read the Actions method of the card using Mono.Cecil to inspect its IL code
+            // if it is not possible to read the Actions method, return false to indicate that the card does not have a potential draw action as failsafe
+            // usually this will be the case when testing the mod using ScriptEngine with the `scripts` directory, (because the scripts are compiled into a single assembly and the Actions method is not accessible via reflection, maybe)
+            // this doesn't happen when the mod is installed in `plugins` directory, or though the game's modthelbol mod manager
+            try
+            {
 
-            moveNext = stateMachine?.Methods
-                .FirstOrDefault(method => method.Name == "MoveNext" && method.HasBody);
-            if (moveNext == null)
+                if (stateMachineType == null)
+                    return (flowControl: false, value: false);
+                module = ModuleDefinition.ReadModule(card.GetType().Assembly.Location);
+                var stateMachineName = stateMachineType.FullName.Replace('+', '/');
+                var stateMachine = FindTypes(module.Types)
+                    .FirstOrDefault(type => type.FullName == stateMachineName);
+
+                moveNext = stateMachine?.Methods
+                    .FirstOrDefault(method => method.Name == "MoveNext" && method.HasBody);
+                if (moveNext == null)
+                    return (flowControl: false, value: false);
+                return (flowControl: true, value: default);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading Actions method for card {card.Name}: {ex.Message}");
                 return (flowControl: false, value: false);
-            return (flowControl: true, value: default);
+            }
         }
 
         private static IEnumerable<TypeDefinition> FindTypes(
